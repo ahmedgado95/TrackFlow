@@ -96,18 +96,37 @@ The event was successfully generated and printed in the Xcode Console.
 - Successful endpoint: GET /get
 - Error endpoint: GET /status/404
 
+## Phase 3: User Interaction & Screen Navigation Tracking
 
-### Phase 3: n8n Integration
+**Status: Completed**
 
-- [ ] Create an n8n webhook.
-- [ ] Connect the iOS tracking layer to the webhook.
-- [ ] Forward event and network logs.
+### Implemented
+- [x] Track screen_opened events across HomeView, CardsView, CardDetailsView, and TransactionsView.
+- [x] Track button_tapped events for user interactions.
+- [x] Track screen_transitioned events with source and destination screen details.
+- [x] Capture event timestamps and custom event details.
+- [x] Log tracking events in the Xcode Console.
+- [x] Track navigation from HomeView to CardsView.
+- [x] Track navigation from HomeView to TransactionsView.
+- [x] Track navigation from CardsView to CardDetailsView.
 
-### Phase 4: Telegram Integration
+### Testing
+- [x] Verify HomeView screen tracking.
+- [x] Verify CardsView screen tracking.
+- [x] Verify CardDetailsView screen tracking.
+- [x] Verify TransactionsView screen tracking.
+- [x] Verify button tap event logging.
+- [x] Verify screen transition event logging.
+- [x] Verify source and destination screen details.
+- [x] Verify event sequence across navigation flows.
+- [x] Verify tracking when returning to previously opened screens.
 
-- [ ] Create a Telegram Bot.
-- [ ] Configure Telegram notifications in n8n.
-- [ ] Send real-time debugging notifications.
+### Notes
+- Screen tracking uses SwiftUI's onAppear lifecycle method.
+- The onAppear method may be called multiple times when navigating back to a screen.
+- Screen transition events are recorded when the user taps a navigation link.
+- The destination's screen_opened event confirms that the destination view appeared.
+- Tracking events must not contain passwords, authentication tokens, payment card details, or other sensitive information.
 
 ## 🔐 Security
 

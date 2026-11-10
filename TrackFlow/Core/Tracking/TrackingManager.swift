@@ -28,13 +28,26 @@ final class TrackingManager {
         }
 
         // Local Debug Logging
+      
+        let detailsDescription = event.details
+            .sorted { $0.key < $1.key }
+            .map { "\($0.key): \($0.value)" }
+            .joined(separator: "\n")
+
         print("""
         🔍 TRACKING EVENT
+        ------------------------------
         Event: \(event.eventName)
         Screen: \(event.screenName)
         User: \(event.userId)
         ID: \(event.id)
+        Timestamp: \(event.timestamp)
+
+        Details:
+        \(detailsDescription.isEmpty ? "None" : detailsDescription)
+        ------------------------------
         """)
+
         
         // Remote Event Delivery
         guard configuration.webhookURL != nil else {
