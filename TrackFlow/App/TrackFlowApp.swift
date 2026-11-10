@@ -6,25 +6,19 @@
 //
 
 import SwiftUI
-import SwiftData
 
 @main
 struct TrackFlowApp: App {
-    var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
-        do {
-            return try ModelContainer(for: schema, configurations: [modelConfiguration])
-        } catch {
-            fatalError("Could not create ModelContainer: \(error)")
-        }
-    }()
+    private let trackingManager = TrackingManager(
+        configuration: .development
+    )
 
     var body: some Scene {
         WindowGroup {
+            HomeView(
+                trackingManager: trackingManager
+            )
         }
-        .modelContainer(sharedModelContainer)
     }
 }
