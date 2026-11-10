@@ -64,15 +64,38 @@ User: demo_user_001
 
 The event was successfully generated and printed in the Xcode Console.
 
-### Phase 2: Network Request & Response Tracking
 
-- [ ] Implement APIRequest.
-- [ ] Implement NetworkLog.
-- [ ] Implement NetworkLogger.
-- [ ] Implement NetworkManager.
-- [ ] Capture HTTP requests and responses.
-- [ ] Measure API execution time.
-- [ ] Add sensitive data redaction.
+## Phase 2: Network Request & Response Tracking
+
+**Status: Completed**
+
+### Implemented
+- [x] APIRequest model for building HTTP requests.
+- [x] NetworkLog model for storing network activity.
+- [x] NetworkLogger for logging requests and responses.
+- [x] Sensitive data redaction for request/response headers and JSON bodies.
+- [x] URL query parameter redaction.
+- [x] NetworkManager using URLSession.
+- [x] Request duration measurement.
+- [x] HTTP status code tracking.
+- [x] HTTP error detection (4xx / 5xx).
+- [x] Network transport error logging.
+
+### Testing
+- [x] Successful HTTPS request using HTTPBin.
+- [x] HTTP 200 response logging.
+- [x] HTTP 404 response detection.
+- [x] Request and response headers logging.
+- [x] JSON response body logging.
+- [x] Sensitive Authorization header redaction.
+- [x] Sensitive data redaction inside JSON response bodies.
+- [x] Network request duration measurement.
+
+### Test Environment
+- API: https://httpbin.org
+- Successful endpoint: GET /get
+- Error endpoint: GET /status/404
+
 
 ### Phase 3: n8n Integration
 

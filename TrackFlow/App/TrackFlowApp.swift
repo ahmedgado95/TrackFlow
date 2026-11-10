@@ -14,10 +14,17 @@ struct TrackFlowApp: App {
         configuration: .development
     )
 
+    private let networkManager = NetworkManager(
+        baseURL: URL(
+            string: "https://httpbin.org"
+        )!
+    )
+
     var body: some Scene {
         WindowGroup {
             HomeView(
-                trackingManager: trackingManager
+                trackingManager: trackingManager,
+                networkManager: networkManager
             )
         }
     }

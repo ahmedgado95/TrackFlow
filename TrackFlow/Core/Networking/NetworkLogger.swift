@@ -107,6 +107,36 @@ final class NetworkLogger {
         )
     }
 
+    func redactURL(_ url: URL?) -> String {
+
+        guard let url,
+              var components = URLComponents(
+                  url: url,
+                  resolvingAgainstBaseURL: false
+              ) else {
+            return "Invalid URL"
+        }
+
+        components.queryItems = components.queryItems?.map { item in
+
+            let key = item.name.lowercased()
+
+            if sensitiveKeys.contains(key) ||
+                key.contains("token") ||
+                key.contains("api-key") {
+
+                return URLQueryItem(
+                    name: item.name,
+                    value: "[REDACTED]"
+                )
+            }
+
+            return item
+        }
+
+        return components.string ?? url.absoluteString
+    }
+
     private func redactJSON(_ object: inout Any) {
 
         if var dictionary = object as? [String: Any] {
