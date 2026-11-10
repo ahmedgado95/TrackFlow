@@ -42,15 +42,27 @@ TrackFlow/
 
 ## 🚀 Development Progress
 
-### Phase 1: Project Initialization & Event Tracking
+### Phase 1: Project Initialization & Event Tracking <badge color="success">Completed</badge>
 
 - [x] Initialize the SwiftUI project.
 - [x] Create the initial project structure.
 - [x] Implement the TrackingEvent model.
 - [x] Implement TrackingConfiguration.
 - [x] Implement TrackingManager.
-- [x] Add the initial Home screen.
-- [ ] Verify event tracking on the iOS Simulator.
+- [x] Integrate event tracking into HomeView.
+- [x] Verify event tracking in the Xcode Console.
+
+**Test Result:**
+
+Successfully captured the following event:
+
+```text
+Event: screen_opened
+Screen: HomeView
+User: demo_user_001
+```
+
+The event was successfully generated and printed in the Xcode Console.
 
 ### Phase 2: Network Request & Response Tracking
 
