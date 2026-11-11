@@ -28,7 +28,6 @@ final class TrackingManager {
         }
 
         // Local Debug Logging
-      
         let detailsDescription = event.details
             .sorted { $0.key < $1.key }
             .map { "\($0.key): \($0.value)" }
@@ -42,13 +41,11 @@ final class TrackingManager {
         User: \(event.userId)
         ID: \(event.id)
         Timestamp: \(event.timestamp)
-
         Details:
         \(detailsDescription.isEmpty ? "None" : detailsDescription)
         ------------------------------
         """)
 
-        
         // Remote Event Delivery
         guard configuration.webhookURL != nil else {
             return
@@ -74,14 +71,23 @@ final class TrackingManager {
                 forHTTPHeaderField: "Content-Type"
             )
 
+            // Webhook Authentication
+            if let authKey = configuration.webhookAuthKey,
+               !authKey.isEmpty {
+                request.setValue(
+                    authKey,
+                    forHTTPHeaderField: "X-TrackFlow-Key"
+                )
+            } else {
+                print("❌ Tracking delivery failed: Missing webhook auth key")
+                return
+            }
+
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
-
             request.httpBody = try encoder.encode(event)
 
-            let (_, response) = try await session.data(
-                for: request
-            )
+            let (_, response) = try await session.data(for: request)
 
             guard let httpResponse = response as? HTTPURLResponse,
                   (200...299).contains(httpResponse.statusCode) else {

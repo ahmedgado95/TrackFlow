@@ -6,20 +6,25 @@
 //
 
 
+
 import Foundation
 
 struct TrackingConfiguration {
-
     let isEnabled: Bool
     let webhookURL: URL?
+    let webhookAuthKey: String?
 
     static let development = TrackingConfiguration(
         isEnabled: true,
-        webhookURL: nil
+        webhookURL: nil,
+        webhookAuthKey: nil
     )
 
     static let production = TrackingConfiguration(
-        isEnabled: false,
-        webhookURL: nil
+        isEnabled: true,
+        webhookURL: URL(
+            string: "https://ahmedgado.app.n8n.cloud/webhook/trackflow-events"
+        ),
+        webhookAuthKey: ProcessInfo.processInfo.environment["TRACKFLOW_WEBHOOK_KEY"]
     )
 }

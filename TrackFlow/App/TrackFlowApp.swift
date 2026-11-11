@@ -11,14 +11,17 @@ import SwiftUI
 struct TrackFlowApp: App {
 
     private let trackingManager = TrackingManager(
-        configuration: .development
+        configuration: .production
     )
 
+ 
     private let networkManager = NetworkManager(
         baseURL: URL(
             string: "https://httpbin.org"
-        )!
+        )!,
+        trackingConfiguration: .production
     )
+
 
     var body: some Scene {
         WindowGroup {
